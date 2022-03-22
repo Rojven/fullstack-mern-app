@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background-primary: #131313;
+    --text-primary: #ffffff;
+}
+  
+body {
+    position: relative;
+}
+  
+ul,
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+  
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+  
+a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

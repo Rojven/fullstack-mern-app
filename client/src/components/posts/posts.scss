@@ -1,0 +1,7 @@
+.posts {
+    background-color: rgb(143, 49, 49);
+    min-height: 100vh;
+    &__title {
+        color: var(--text-primary);
+    }
+}

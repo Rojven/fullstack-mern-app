@@ -1,0 +1,12 @@
+.single-post {
+    background-color: rgb(90, 194, 116);
+    &__box {
+        max-width: 100%;
+        .img {   
+            width: 50%;
+        }
+    }
+    &__text {
+        color: white;
+    }
+}

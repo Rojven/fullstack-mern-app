@@ -1,0 +1,26 @@
+.header {
+    width: 100%;
+    height: 9vh;
+    position: fixed;
+    top: 0;
+    background-color: var(--background-primary);
+    &__wrapper {  
+        align-items: center;
+        height: 9vh;
+    }
+    &__menu {
+        width: 30vw;
+        min-width: 260px;
+    }
+    &__link {
+        color: var(--text-primary);
+        font-size: min(max(17px, 1.1vw), 40px);
+        &_button {
+            background-color: transparent;
+            padding: 1%;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
