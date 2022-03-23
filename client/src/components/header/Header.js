@@ -1,6 +1,7 @@
-import { NavLink, Link } from 'react-router-dom';
-import { IoMdExit } from 'react-icons/io';
-import { MdOutlineAccountCircle } from 'react-icons/md';
+import { useState, useEffect } from 'react';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actions/login';
 import './header.scss';
 
 const navLinkStyle = ({ isActive }) => ({color: isActive ? 'red' : 'inherit'});
@@ -13,7 +14,23 @@ const navLinksData = [
 
 const Header = () => {
 
-    const user = null;
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
+
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('prof')));
+
+    useEffect(() => {
+        const token = user?.token;
+
+        setUser(JSON.parse(localStorage.getItem('prof')));
+    }, [location]);
+    
+    const onLogout = () => {
+        dispatch(logout());
+        navigate('/');
+        setUser(null);
+    }
 
     const navLinks = navLinksData.map((navLink, i) => {
         const {link, text} = navLink;
@@ -31,20 +48,6 @@ const Header = () => {
         )
     })
 
-    const headerBtns = user 
-    ? ( 
-        <div>
-            {/* <p>{user.result.name.charAt(0)}</p> */}
-            {/* <MdOutlineAccountCircle/> */}
-            Выход
-        </div>
-    ) : ( 
-        <div>
-            <Link to='/login'>Вход</Link>
-           {/*  <IoMdExit/> */}
-        </div>
-    )
- 
     return (
         <header className="header">
             <div className="container">
@@ -57,9 +60,25 @@ const Header = () => {
                     <ul className="header__menu flex">
                         {user ? navLinks : null}
                     </ul>
-                    <button className="header__link header__link_button">
-                        {headerBtns}
-                    </button>
+                    <div className='flex'>
+                        {user && (
+                            <div className='header__auth flex'>
+                                <img src={user.data.result.imageUrl} alt="user" className='user-pic'/>
+                                <p>{user.data.result.name}</p>
+                            </div>
+                        )}
+                        {user ? (
+                            <button 
+                            className="header__link header__link_button"
+                            onClick={onLogout}>
+                               Выход
+                            </button>
+                        ) : (
+                            <button className="header__link header__link_button">
+                               <Link to='/login'>Вход</Link>
+                            </button>
+                        )}
+                    </div>  
                 </div>
             </div>
         </header>

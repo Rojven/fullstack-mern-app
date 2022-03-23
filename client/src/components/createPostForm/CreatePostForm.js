@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import FileBase from 'react-file-base64';
-//import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useInputChange } from '../../hooks/useInputChange';
 import { createPost, updatePost } from '../../redux/actions/posts';
 import './createPostForm.scss';
 
 
 const CreatePostForm = ({ postId, setPostId }) => {
     
-    //const navigate = useNavigate();
-
     const dispatch = useDispatch();
     const post = useSelector(state => postId ? state.posts.find(post => post._id === postId) : null);
 
@@ -21,18 +19,13 @@ const CreatePostForm = ({ postId, setPostId }) => {
         selectedFile: ''
     })
 
+    const {onInputChange} = useInputChange(postData, setPostData);
+
     const {title, message, creator, tags} = postData;
 
     useEffect(() => {
         if(post) setPostData(post);
     }, [post])
-
-    const onInputChange = (e) => {
-        setPostData({
-            ...postData,
-            [e.target.name]: e.target.value
-        })
-    }
 
     const inputsPatternData = [
         {name: 'title', value: title},
@@ -73,7 +66,6 @@ const CreatePostForm = ({ postId, setPostId }) => {
             dispatch(createPost(postData))
         }
         onInputsClear();
-        //navigate('/');
     }
 
     console.log(postData)
